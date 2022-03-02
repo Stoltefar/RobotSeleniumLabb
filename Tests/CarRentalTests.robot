@@ -19,6 +19,11 @@ Begin Web Test
 End Web Test
     Close Browser
 
+Compare Date Value On Page With Current Date
+    ${yyyy}  ${mm}  ${dd}=  Get time  year,month,day
+    ${dateshown}=  Get Value  id:start
+    Should be Equal  ${dateshown}  ${yyyy}-${mm}-${dd}
+
 Filter Make Volvo
     Click Element  id:filterMakeHolder
     Click Element  id:ms-opt-4
@@ -27,10 +32,15 @@ Filter Two Passengers
     Click Element  id:filterPassHolder
     Click Element  id:ms-opt-5
 
-Compare Date Value On Page With Current Date
-    ${yyyy}  ${mm}  ${dd}=  Get time  year,month,day
-    ${dateshown}=  Get Value  id:start
-    Should be Equal  ${dateshown}  ${yyyy}-${mm}-${dd}
+Filter Five Passengers
+    Click Element  id:ms-opt-6
+
+Book First Car In List
+    Wait Until Page Contains Element  id:carSelect1
+    Click Element  id:carSelect1
+
+
+
 
 *** Test Cases ***
 Open Web Page And Verify
@@ -57,5 +67,12 @@ Check Prompt For Invalid Filter Result
     Filter Make Volvo
     Filter Two Passengers
     Wait Until Page Contains  No cars with selected filters. Please edit filter selection
+
+Check Alert Message For Login When Booking Car
+    [Documentation]  Requirement: If the user is not signed in when pressing the book button, an alert box will appear asking the user to sign in before proceeding.
+    [Tags]
+    Filter Five Passengers
+    Book First Car In List
+    Alert Should Be Present  You need to be logged in to continue.
 
 

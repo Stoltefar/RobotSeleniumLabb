@@ -16,6 +16,7 @@ Compare Date Value On Page With Current Date
     Should be Equal  ${dateshown}  ${yyyy}-${mm}-${dd}
 
 Choose current date and continue
+    Compare Date Value On Page With Current Date
     Click Element  id:continue
     Wait Until Page Contains  What would you like to drive?
 
